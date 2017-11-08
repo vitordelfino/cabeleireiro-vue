@@ -4,8 +4,8 @@ export default class AgendamentoService {
 
     let customActions = {
       confirmar: {method: 'PUT', url: 'agendamento/confirma{/id}'},
-      finalizar: {method: 'PUT', url: 'agendamento/finalizar{/id}'},
-      cancelar: {method: 'DELETE', url: 'agendamento/cancelar{/id}{/obs}'}
+      finalizar: {method: 'PUT', url: 'agendamento/finaliza{/id}'},
+      cancelar: {method: 'DELETE', url: 'agendamento{/id}{/obs}'}
     };
 
     this._resource = resource('agendamento/list',{}, customActions);
@@ -30,12 +30,21 @@ export default class AgendamentoService {
 
   confirmar(agendamento){
     var id = agendamento.id;
-    console.log('id: ' + id);
     return this._resource
-    .confirmar({ id })
+    .confirmar({ id }, {})
     .then(null, erro => {
       console.log(erro);
       throw new Error('Não foi possível confirmar o agendamento');
+    });
+  }
+
+  finalizar(agendamento){
+    var id = agendamento.id;
+    return this._resource
+    .finalizar({ id }, {})
+    .then(null, erro => {
+      console.log(erro);
+      throw new Error('Não foi possível finalizar o agendamento');
     });
   }
 

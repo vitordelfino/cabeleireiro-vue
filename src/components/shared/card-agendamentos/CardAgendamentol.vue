@@ -9,7 +9,7 @@
             <md-list-item class="md-inset">Serviço: {{ agendamento.servico }}</md-list-item>
             <md-list-item class="md-inset">Status: {{ agendamento.status }}</md-list-item>
           </md-list>
-          <md-button class="md-primary" @click="confirmar(agendamento)">Confirmar</md-button>
+          <md-button class="md-primary" @click="finalizar(agendamento)">Finalizar</md-button>
           <md-button class="md-primary" @click="cancelar(agendamento)">Cancelar</md-button>
         </md-list-expand>
       </md-list-item>
@@ -30,20 +30,24 @@
     props: ['agendamentos'],
 
     methods: {
-      confirmar(agendamento) {
+      finalizar(agendamento) {
         this.service
-          .confirmar(agendamento)
+          .finalizar(agendamento)
           .then(() => {
-            console.log('Ok');
+            let indice = this.agendamentos.indexOf(agendamento);
+            this.agendamentos.splice(indice, 1);
+            console.log('finalizado');
           }, erro => {
             console.log(erro.message);
           });
       },
       cancelar(agendamento) {
-        this.service
-          .cancelar(agendamento, obs)
-          .then(() => {
 
+        this.service
+          .cancelar(agendamento, 'cancelando agendamento')
+          .then(() => {
+            let indice = this.agendamentos.indexOf(agendamento);
+            this.agendamentos.splice(indice, 1);
           }, erro => {
             console.log(erro.message);
           });
