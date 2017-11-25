@@ -1,5 +1,8 @@
 <template>
   <div class="conteudo">
+
+    <h1> Agendamentos pendentes de confirmação </h1>
+
     <transition name="fade" mode="in-out">
 
       <md-card class="card">
